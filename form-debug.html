@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Debug - Nemesis Energy</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; }
+        .debug-panel { background: #f8f9fa; border: 1px solid #dee2e6; border-radius: 8px; padding: 20px; margin: 20px 0; }
+        .debug-panel h3 { margin-top: 0; color: #495057; }
+        .status { padding: 10px; border-radius: 4px; margin: 10px 0; }
+        .status.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .status.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .status.warning { background: #fff3cd; color: #856404; border: 1px solid #ffeaa7; }
+        .log { background: #343a40; color: #f8f9fa; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 12px; max-height: 300px; overflow-y: auto; white-space: pre-wrap; }
+        button { background: #007bff; color: white; border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; margin: 5px; }
+        button:hover { background: #0056b3; }
+        .test-form { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        input, select, textarea { width: 100%; padding: 8px; margin: 5px 0; border: 1px solid #ccc; border-radius: 4px; }
+    </style>
+</head>
+<body>
+    <h1>🔍 Form Submission Debug Tool</h1>
+    <p>This page will help diagnose why your form isn't working.</p>
+
+    <div class="debug-panel">
+        <h3>📋 System Check</h3>
+        <div id="systemStatus">Checking system status...</div>
+        <button onclick="runSystemCheck()">🔄 Recheck System</button>
+    </div>
+
+    <div class="debug-panel">
+        <h3>📧 Test Form Submission</h3>
+        <div class="test-form">
+            <input type="text" id="firstName" placeholder="First Name" value="Test">
+            <input type="text" id="lastName" placeholder="Last Name" value="User">
+            <input type="email" id="email" placeholder="Email" value="test@example.com">
+            <input type="tel" id="phone" placeholder="Phone" value="+1234567890">
+            <select id="projectType">
+                <option value="consultation">General Consultation</option>
+                <option value="residential">Residential Solar</option>
+            </select>
+            <textarea id="message" placeholder="Message">This is a test submission to debug the form.</textarea>
+            <button onclick="testSubmission()">🚀 Test Submit</button>
+        </div>
+        <div id="submissionResult"></div>
+    </div>
+
+    <div class="debug-panel">
+        <h3>📊 Debug Log</h3>
+        <div id="debugLog" class="log">Debug information will appear here...\n</div>
+        <button onclick="clearLog()">🗑️ Clear Log</button>
+    </div>
+
+    <!-- Include the scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="assets/js/email-config-working.js"></script>
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Debug logging
+        function debugLog(message) {
+            const timestamp = new Date().toLocaleTimeString();
+            const logElement = document.getElementById('debugLog');
+            logElement.textContent += `[${timestamp}] ${message}\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+            console.log(`[DEBUG] ${message}`);
+        }
+
+        function clearLog() {
+            document.getElementById('debugLog').textContent = 'Debug log cleared...\n';
+        }
+
+        // System check
+        function runSystemCheck() {
+            const statusElement = document.getElementById('systemStatus');
+            statusElement.innerHTML = '';
+            
+            const checks = [
+                {
+                    name: 'EmailJS Library',
+                    test: () => typeof emailjs !== 'undefined',
+                    fix: 'EmailJS CDN loaded from: https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js'
+                },
+                {
+                    name: 'Email Configuration',
+                    test: () => typeof window.EMAIL_CONFIG !== 'undefined',
+                    fix: 'email-config-working.js should be loaded'
+                },
+                {
+                    name: 'Main.js ContactForm',
+                    test: () => typeof ContactForm !== 'undefined' && typeof ContactForm.submitForm === 'function',
+                    fix: 'main.js should define ContactForm module'
+                },
+                {
+                    name: 'Internet Connection',
+                    test: () => navigator.onLine,
+                    fix: 'Check your internet connection'
+                }
+            ];
+
+            checks.forEach(check => {
+                const passed = check.test();
+                const statusDiv = document.createElement('div');
+                statusDiv.className = `status ${passed ? 'success' : 'error'}`;
+                statusDiv.innerHTML = `
+                    <strong>${check.name}:</strong> ${passed ? '✅ OK' : '❌ FAILED'}<br>
+                    ${!passed ? `<small>Fix: ${check.fix}</small>` : ''}
+                `;
+                statusElement.appendChild(statusDiv);
+                
+                debugLog(`${check.name}: ${passed ? 'PASS' : 'FAIL'}`);
+            });
+
+            // Check configuration details
+            if (typeof window.EMAIL_CONFIG !== 'undefined') {
+                const config = window.EMAIL_CONFIG;
+                debugLog(`Configuration loaded: ${JSON.stringify(config, null, 2)}`);
+                
+                if (config.SERVICE_ID === 'YOUR_SERVICE_ID') {
+                    const warningDiv = document.createElement('div');
+                    warningDiv.className = 'status warning';
+                    warningDiv.innerHTML = '<strong>EmailJS Not Configured:</strong> Will use fallback methods (Formspree/mailto)';
+                    statusElement.appendChild(warningDiv);
+                    debugLog('EmailJS not configured - using fallback methods');
+                }
+            }
+        }
+
+        // Test submission
+        async function testSubmission() {
+            const resultElement = document.getElementById('submissionResult');
+            resultElement.innerHTML = '<div class="status">🔄 Testing submission...</div>';
+            
+            try {
+                debugLog('Starting test submission...');
+                
+                // Create form data
+                const formData = new FormData();
+                formData.append('firstName', document.getElementById('firstName').value);
+                formData.append('lastName', document.getElementById('lastName').value);
+                formData.append('email', document.getElementById('email').value);
+                formData.append('phone', document.getElementById('phone').value);
+                formData.append('projectType', document.getElementById('projectType').value);
+                formData.append('message', document.getElementById('message').value);
+                
+                debugLog('Form data created');
+                
+                // Test submission
+                const result = await ContactForm.submitForm(formData);
+                
+                debugLog(`Submission result: ${JSON.stringify(result)}`);
+                
+                if (result.success) {
+                    resultElement.innerHTML = `
+                        <div class="status success">
+                            <strong>✅ SUCCESS!</strong><br>
+                            ${result.message}
+                        </div>
+                    `;
+                } else {
+                    throw new Error(result.message || 'Unknown error');
+                }
+                
+            } catch (error) {
+                debugLog(`Submission error: ${error.message}`);
+                resultElement.innerHTML = `
+                    <div class="status error">
+                        <strong>❌ FAILED!</strong><br>
+                        ${error.message}
+                    </div>
+                `;
+            }
+        }
+
+        // Run system check on load
+        window.addEventListener('load', () => {
+            debugLog('Page loaded - running system check...');
+            setTimeout(runSystemCheck, 500);
+        });
+
+        // Override console.log to capture debug info
+        const originalConsoleLog = console.log;
+        const originalConsoleError = console.error;
+        
+        console.log = function(...args) {
+            debugLog('LOG: ' + args.join(' '));
+            originalConsoleLog.apply(console, args);
+        };
+        
+        console.error = function(...args) {
+            debugLog('ERROR: ' + args.join(' '));
+            originalConsoleError.apply(console, args);
+        };
+    </script>
+</body>
+</html>

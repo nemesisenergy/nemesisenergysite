@@ -1,0 +1,4 @@
+/* This is a placeholder for the global partners network image.
+   The actual image should be saved as: assets/images/global-partners-network.jpg
+   It should show a global network visualization with connection lines across continents,
+   similar to the attached image showing Earth with glowing network connections. */

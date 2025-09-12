@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EmailJS Test - Nemesis Energy</title>
+    <style>
+        body { font-family: 'Inter', Arial, sans-serif; max-width: 800px; margin: 50px auto; padding: 20px; line-height: 1.6; }
+        .header { background: linear-gradient(135deg, #FF6B35 0%, #00D4FF 100%); color: white; padding: 30px; border-radius: 12px; text-align: center; margin-bottom: 30px; }
+        .setup-status { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #6c757d; }
+        .setup-status.success { border-left-color: #28a745; background: #d4edda; }
+        .setup-status.error { border-left-color: #dc3545; background: #f8d7da; }
+        .setup-status.warning { border-left-color: #ffc107; background: #fff3cd; }
+        .test-form { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin-bottom: 5px; font-weight: 600; }
+        input, select, textarea { width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+        button { background: linear-gradient(135deg, #FF6B35 0%, #00D4FF 100%); color: white; padding: 12px 24px; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        button:hover { opacity: 0.9; }
+        button:disabled { opacity: 0.6; cursor: not-allowed; }
+        .result { margin: 20px 0; padding: 15px; border-radius: 6px; }
+        .result.success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .result.error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+        .code-block { background: #f8f9fa; padding: 15px; border-radius: 6px; font-family: 'Courier New', monospace; font-size: 13px; overflow-x: auto; margin: 10px 0; }
+        .checklist { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .checklist li { margin: 8px 0; }
+        .step { background: white; padding: 20px; border-radius: 8px; margin: 15px 0; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+        .step h3 { color: #FF6B35; margin-top: 0; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🧪 EmailJS Configuration Test</h1>
+        <p>Verify your EmailJS setup before going live</p>
+    </div>
+
+    <div id="configStatus" class="setup-status">
+        <h3>📋 Configuration Status</h3>
+        <p>Checking EmailJS configuration...</p>
+    </div>
+
+    <div class="step">
+        <h3>🔧 Step 1: Configuration Check</h3>
+        <p>First, let's verify your EmailJS configuration is properly set up:</p>
+        <button id="checkConfig" onclick="checkConfiguration()">Check Configuration</button>
+        <div id="configResult"></div>
+    </div>
+
+    <div class="step">
+        <h3>📧 Step 2: Test Email</h3>
+        <p>Send a test email to verify everything is working:</p>
+        <div class="test-form">
+            <form id="testForm">
+                <div class="form-group">
+                    <label for="testFirstName">First Name</label>
+                    <input type="text" id="testFirstName" name="firstName" value="Test" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="testLastName">Last Name</label>
+                    <input type="text" id="testLastName" name="lastName" value="User" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="testEmail">Email Address</label>
+                    <input type="email" id="testEmail" name="email" value="test@example.com" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="testPhone">Phone Number</label>
+                    <input type="tel" id="testPhone" name="phone" value="+1234567890" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="testProjectType">Project Type</label>
+                    <select id="testProjectType" name="projectType" required>
+                        <option value="consultation">General Consultation</option>
+                        <option value="residential">Residential Solar System</option>
+                        <option value="commercial">Commercial Solar System</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="testMessage">Message</label>
+                    <textarea id="testMessage" name="message" rows="3">This is a test email from the EmailJS configuration test page. Please ignore this message.</textarea>
+                </div>
+                
+                <button type="submit">🚀 Send Test Email</button>
+            </form>
+        </div>
+        <div id="testResult"></div>
+    </div>
+
+    <div class="step">
+        <h3>✅ Step 3: Verification Checklist</h3>
+        <div class="checklist">
+            <h4>After sending the test email, verify:</h4>
+            <ul>
+                <li>✅ You received a success message above</li>
+                <li>✅ Email arrived at info@nemesisenergy.co.za</li>
+                <li>✅ Email formatting looks professional</li>
+                <li>✅ All customer information is displayed correctly</li>
+                <li>✅ Reply button works (links to customer email)</li>
+                <li>✅ No console errors in browser developer tools</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="step">
+        <h3>🛠 Troubleshooting</h3>
+        <p><strong>Common Issues:</strong></p>
+        <ul>
+            <li><strong>"Configuration not found":</strong> Make sure email-config.js is loaded properly</li>
+            <li><strong>"Incomplete configuration":</strong> Update your Service ID, Template ID, and Public Key</li>
+            <li><strong>"EmailJS not defined":</strong> Check internet connection and EmailJS CDN</li>
+            <li><strong>Email not arriving:</strong> Check spam folder, verify template settings</li>
+        </ul>
+        
+        <p><strong>Need Help?</strong> Check the <code>EMAILJS_SETUP_GUIDE.md</code> file for detailed setup instructions.</p>
+    </div>
+
+    <!-- Include necessary scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="assets/js/email-config.js"></script>
+    
+    <script>
+        // Configuration check function
+        function checkConfiguration() {
+            const statusDiv = document.getElementById('configStatus');
+            const resultDiv = document.getElementById('configResult');
+            
+            try {
+                // Check if EmailJS is loaded
+                if (typeof emailjs === 'undefined') {
+                    throw new Error('EmailJS library not loaded');
+                }
+                
+                // Check if config is loaded
+                if (typeof window.EMAIL_CONFIG === 'undefined') {
+                    throw new Error('Email configuration not found (email-config.js not loaded)');
+                }
+                
+                const config = window.EMAIL_CONFIG;
+                
+                // Check if configuration is complete
+                const issues = [];
+                if (!config.SERVICE_ID || config.SERVICE_ID === 'YOUR_SERVICE_ID') {
+                    issues.push('SERVICE_ID not configured');
+                }
+                if (!config.TEMPLATE_ID || config.TEMPLATE_ID === 'YOUR_TEMPLATE_ID') {
+                    issues.push('TEMPLATE_ID not configured');
+                }
+                if (!config.PUBLIC_KEY || config.PUBLIC_KEY === 'YOUR_PUBLIC_KEY') {
+                    issues.push('PUBLIC_KEY not configured');
+                }
+                
+                if (issues.length > 0) {
+                    statusDiv.className = 'setup-status warning';
+                    statusDiv.innerHTML = `
+                        <h3>⚠️ Configuration Incomplete</h3>
+                        <p>Please update the following in email-config.js:</p>
+                        <ul>${issues.map(issue => `<li>${issue}</li>`).join('')}</ul>
+                    `;
+                    resultDiv.innerHTML = `
+                        <div class="result error">
+                            <strong>Configuration Issues Found:</strong><br>
+                            ${issues.join(', ')}<br>
+                            <small>Update email-config.js with your EmailJS credentials</small>
+                        </div>
+                    `;
+                } else {
+                    statusDiv.className = 'setup-status success';
+                    statusDiv.innerHTML = `
+                        <h3>✅ Configuration Complete</h3>
+                        <p>EmailJS is properly configured and ready to use!</p>
+                    `;
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <strong>✅ Configuration Valid!</strong><br>
+                            Service ID: ${config.SERVICE_ID}<br>
+                            Template ID: ${config.TEMPLATE_ID}<br>
+                            To Email: ${config.TO_EMAIL}
+                        </div>
+                    `;
+                    
+                    // Initialize EmailJS
+                    emailjs.init(config.PUBLIC_KEY);
+                }
+                
+            } catch (error) {
+                statusDiv.className = 'setup-status error';
+                statusDiv.innerHTML = `
+                    <h3>❌ Configuration Error</h3>
+                    <p>${error.message}</p>
+                `;
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <strong>Error:</strong> ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        // Test form submission
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const resultDiv = document.getElementById('testResult');
+            const submitButton = e.target.querySelector('button');
+            const originalText = submitButton.textContent;
+            
+            // Show loading state
+            submitButton.textContent = '⏳ Sending...';
+            submitButton.disabled = true;
+            resultDiv.innerHTML = '';
+            
+            try {
+                const config = window.EMAIL_CONFIG;
+                const formData = new FormData(e.target);
+                const formObject = {};
+                
+                for (let [key, value] of formData.entries()) {
+                    formObject[key] = value;
+                }
+                
+                const emailData = {
+                    customer_name: `${formObject.firstName} ${formObject.lastName}`,
+                    customer_email: formObject.email,
+                    customer_phone: formObject.phone,
+                    customer_project: formObject.projectType,
+                    customer_property: 'Test Property',
+                    customer_bill: 'Test Range',
+                    customer_message: formObject.message,
+                    customer_newsletter: 'No',
+                    formatted_date: new Date().toLocaleDateString('en-US', { 
+                        weekday: 'long', 
+                        year: 'numeric', 
+                        month: 'long', 
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    })
+                };
+                
+                const response = await emailjs.send(config.SERVICE_ID, config.TEMPLATE_ID, emailData, config.PUBLIC_KEY);
+                
+                if (response.status === 200) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <strong>✅ Test Email Sent Successfully!</strong><br>
+                            Check the inbox at ${config.TO_EMAIL}<br>
+                            <small>Response Status: ${response.status}</small>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(`Unexpected response status: ${response.status}`);
+                }
+                
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <strong>❌ Test Failed!</strong><br>
+                        ${error.message}<br>
+                        <small>Check console for more details</small>
+                    </div>
+                `;
+                console.error('Test email error:', error);
+            } finally {
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }
+        });
+        
+        // Run configuration check on page load
+        window.addEventListener('load', () => {
+            setTimeout(checkConfiguration, 500);
+        });
+    </script>
+</body>
+</html>

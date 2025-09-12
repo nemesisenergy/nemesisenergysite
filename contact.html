@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Contact Us - Nemesis Energy</title>
+    <meta name="description" content="Get in touch with Nemesis Energy for your solar and renewable energy needs. Free consultations and custom quotes available.">
+    
+    <!-- Preload critical resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    
+    <!-- Optimized CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <!-- EmailJS for client-side email sending -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="assets/js/email-config-working.js"></script>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+                        <div class="nav-logo">
+                <a href="index.html">
+                    <img src="assets/images/nem logo.png" alt="Nemesis Energy" class="logo">
+                </a>
+            </div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="partners.html" class="nav-link">Strategic Partners</a>
+                <a href="contact.html" class="nav-link active">Contact</a>
+                <a href="contact.html" class="nav-cta">Get Quote</a>
+            </div>
+            <div class="nav-toggle" id="nav-toggle">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="page-header-content">
+                <h1>Contact Us</h1>
+                <p>Ready to transform your energy future? Get in touch for a free consultation and unlock the power of sustainable energy solutions.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form-container">
+                    <div class="contact-form-header">
+                        <h2>Get Your Free Solar Consultation</h2>
+                        <p>Our customer service team is here to answer any questions. Fill out the form below or contact us directly.</p>
+                    </div>
+                    
+                    <form class="contact-form" id="contactForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">First Name *</label>
+                                <input type="text" id="firstName" name="firstName" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Last Name *</label>
+                                <input type="text" id="lastName" name="lastName" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Email Address *</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="phone">Phone Number *</label>
+                                <div class="phone-input-group">
+                                    <select id="countryCode" name="countryCode" class="country-code-select">
+                                        <option value="+27">🇿🇦 +27 (South Africa)</option>
+                                        <option value="+1">🇺🇸 +1 (United States)</option>
+                                        <option value="+44">🇬🇧 +44 (United Kingdom)</option>
+                                        <option value="+61">🇦🇺 +61 (Australia)</option>
+                                        <option value="+49">🇩🇪 +49 (Germany)</option>
+                                        <option value="+33">🇫🇷 +33 (France)</option>
+                                        <option value="+39">🇮🇹 +39 (Italy)</option>
+                                        <option value="+34">🇪🇸 +34 (Spain)</option>
+                                        <option value="+31">🇳🇱 +31 (Netherlands)</option>
+                                        <option value="+32">🇧🇪 +32 (Belgium)</option>
+                                        <option value="+41">🇨🇭 +41 (Switzerland)</option>
+                                        <option value="+43">🇦🇹 +43 (Austria)</option>
+                                        <option value="+46">🇸🇪 +46 (Sweden)</option>
+                                        <option value="+47">🇳🇴 +47 (Norway)</option>
+                                        <option value="+45">🇩🇰 +45 (Denmark)</option>
+                                        <option value="+358">🇫🇮 +358 (Finland)</option>
+                                        <option value="+86">🇨🇳 +86 (China)</option>
+                                        <option value="+81">🇯🇵 +81 (Japan)</option>
+                                        <option value="+82">🇰🇷 +82 (South Korea)</option>
+                                        <option value="+91">🇮🇳 +91 (India)</option>
+                                        <option value="+55">🇧🇷 +55 (Brazil)</option>
+                                        <option value="+52">🇲🇽 +52 (Mexico)</option>
+                                        <option value="+7">🇷🇺 +7 (Russia)</option>
+                                        <option value="+234">🇳🇬 +234 (Nigeria)</option>
+                                        <option value="+254">🇰🇪 +254 (Kenya)</option>
+                                        <option value="+971">🇦🇪 +971 (UAE)</option>
+                                        <option value="+966">🇸🇦 +966 (Saudi Arabia)</option>
+                                        <option value="+20">🇪🇬 +20 (Egypt)</option>
+                                    </select>
+                                    <input type="tel" id="phone" name="phone" placeholder="123 456 7890" required>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Address field commented out
+                        <div class="form-group">
+                            <label for="address">Property Address</label>
+                            <input type="text" id="address" name="address" placeholder="Street address, city, state, zip">
+                        </div>
+                        -->
+                        
+                        <div class="form-group">
+                            <label for="projectType">Project Type *</label>
+                            <select id="projectType" name="projectType" required>
+                                <option value="">Select your project type</option>
+                                <option value="residential">Residential Solar System</option>
+                                <option value="commercial">Commercial Solar System</option>
+                                <option value="hybrid">Hybrid System (Solar + Battery)</option>
+                                <option value="maintenance">Maintenance & Monitoring</option>
+                                <option value="consultation">General Consultation</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="propertyType">Property Type</label>
+                            <div class="radio-group">
+                                <label class="radio-option">
+                                    <input type="radio" name="propertyType" value="residential">
+                                    <span class="radio-custom"></span>
+                                    Residential
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="propertyType" value="commercial">
+                                    <span class="radio-custom"></span>
+                                    Commercial/Retail
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="propertyType" value="developer">
+                                    <span class="radio-custom"></span>
+                                    Property Developer
+                                </label>
+                                <label class="radio-option">
+                                    <input type="radio" name="propertyType" value="business">
+                                    <span class="radio-custom"></span>
+                                    Business Owner
+                                </label>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="monthlyBill">Current Monthly Energy Bill</label>
+                            <select id="monthlyBill" name="monthlyBill">
+                                <option value="">Select range</option>
+                                <option value="under-r5000">Under R5,000</option>
+                                <option value="r5000-r10000">R5,000 - R10,000</option>
+                                <option value="r10000-r20000">R10,000 - R20,000</option>
+                                <option value="r20000-r35000">R20,000 - R35,000</option>
+                                <option value="r35000-r50000">R35,000 - R50,000</option>
+                                <option value="over-r50000">Over R50,000</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" rows="5" placeholder="Tell us about your project, timeline, or any specific requirements..."></textarea>
+                        </div>
+                        
+                        <div class="form-group checkbox-group">
+                            <label class="checkbox-option">
+                                <input type="checkbox" name="newsletter" value="yes">
+                                <span class="checkbox-custom"></span>
+                                I would like to receive updates about solar energy trends and Nemesis Energy news
+                            </label>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary btn-full">
+                            <span class="btn-text">Get Free Consultation</span>
+                            <span class="btn-loading" style="display: none;">
+                                <i class="fas fa-spinner fa-spin"></i> Sending...
+                            </span>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="contact-info-container">
+                    <div class="contact-info-card">
+                        <h3>Contact Information</h3>
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Email Us</h4>
+                                    <a href="mailto:info@nemesisenergy.co.za">info@nemesisenergy.co.za</a>
+                                    <p>General inquiries and support</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Call Us</h4>
+                                    <a href="tel:+27662648645">+27662648645</a>
+                                    <p>Mon-Fri: 8AM-6PM SAST</p>
+                                </div>
+                            </div>
+                            
+                            <!--<div class="contact-method">
+                                <div class="contact-icon">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-details">
+                                    <h4>Visit Us</h4>
+                                    Physical address commented out
+                                    <address>
+                                        500 Terry Francine Street<br>
+                                        San Francisco, CA 94158
+                                    </address>
+                                   
+                                    <p>By appointment only</p>
+                                </div>-->
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Quick Stats -->
+                    <!-- <div class="quick-stats">
+                        <h3>Why Choose Us</h3>
+                        <div class="stats-grid">
+                            <div class="stat-item">
+                                <span class="stat-number">30+</span>
+                                <span class="stat-label">Years Combined Experience</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Successful Projects</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">95%</span>
+                                <span class="stat-label">Customer Satisfaction</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-number">24/7</span>
+                                <span class="stat-label">System Monitoring</span>
+                            </div>
+                        </div>
+                    </div> -->
+                    
+                    <!-- Consultation Benefits -->
+                    <!-- <div class="consultation-benefits">
+                        <h3>Free Consultation Includes</h3>
+                        <ul class="benefits-list">
+                            <li><i class="fas fa-check"></i> Site assessment and energy audit</li>
+                            <li><i class="fas fa-check"></i> Custom system design</li>
+                            <li><i class="fas fa-check"></i> Financial analysis and ROI calculation</li>
+                            <li><i class="fas fa-check"></i> Financing options review</li>
+                            <li><i class="fas fa-check"></i> Permit and installation timeline</li>
+                            <li><i class="fas fa-check"></i> Maintenance and warranty details</li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section
+    <section class="map-section">
+        <div class="container">
+            <div class="map-header">
+                <h2>Find Us</h2>
+                <p>Located in the heart of San Francisco, serving customers across California and beyond</p>
+            </div>
+            <div class="map-container">
+                \ Map and address section commented out
+                <div class="map-placeholder">
+                    <div class="map-content">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>500 Terry Francine Street</h3>
+                        <p>San Francisco, CA 94158</p>
+                        <a href="https://maps.google.com" target="_blank" class="btn btn-secondary">View on Google Maps</a>
+                -->
+                    </div>
+                </div>
+                <!-- <div class="location-info">
+                    <h3>Office Hours</h3>
+                    <div class="hours-list">
+                        <div class="hours-item">
+                            <span class="day">Monday - Friday</span>
+                            <span class="time">8:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="day">Saturday</span>
+                            <span class="time">9:00 AM - 4:00 PM</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="day">Sunday</span>
+                            <span class="time">Closed</span>
+                        </div>
+                    </div>
+                    <div class="emergency-contact">
+                        <h4>Emergency Support</h4>
+                        <p>24/7 system monitoring and emergency response for existing customers</p>
+                        <a href="tel:+27662648645" class="emergency-number">+27662648645</a>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+<!-- FAQ Section -->
+ <!--
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Frequently Asked Questions</h2>
+                <p class="section-subtitle">Common questions about our solar solutions</p>
+            </div>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How long does a solar installation take?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Typical residential installations take 1-3 days, while commercial projects can range from 1-4 weeks depending on system size and complexity. We provide detailed timelines during the consultation phase.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What warranties do you offer?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>We offer comprehensive warranties including 25-year panel performance warranties, 10-year inverter warranties, and 5-year installation workmanship warranties. Battery systems come with 10-year warranties.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Do you offer financing options?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, we provide various financing options including solar loans, leases, and power purchase agreements (PPAs). Our team will help you find the best option for your budget and needs.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>How much can I save with solar?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Savings vary based on location, energy usage, and system size. Most customers see 60-90% reduction in electricity bills. We provide detailed savings projections during your free consultation.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>What happens during maintenance?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Our maintenance includes system cleaning, performance monitoring, component inspection, and preventative care. We provide 24/7 monitoring and proactive maintenance to ensure optimal performance.</p>
+                    </div>
+                </div>
+                
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>Can I add battery storage later?</h3>
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Yes, our systems are designed to be expandable. We can retrofit battery storage to existing solar installations, though it's often more cost-effective to install both simultaneously.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    -->
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <img src="assets/images/nem logo.png" alt="Nemesis Energy">
+                    </div>
+                    <p>Empowering businesses with sustainable energy solutions for a cleaner, more independent future.</p>
+                    <!-- <div class="social-links">
+                        <a href="https://facebook.com/nemesisenergy" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://twitter.com/nemesisenergy" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Twitter">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="https://linkedin.com/company/nemesisenergy" target="_blank" rel="noopener noreferrer" aria-label="Connect with us on LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://instagram.com/nemesisenergy" target="_blank" rel="noopener noreferrer" aria-label="Follow us on Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div> -->
+                </div>
+                <div class="footer-nav-wrapper">
+                    <div class="footer-section">
+                        <h3>Quick Links</h3>
+                        <ul>
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="services.html">Services</a></li>
+                            <li><a href="partners.html">Partners</a></li>
+                            <li><a href="contact.html">Contact</a></li>
+                        </ul>
+                    </div>
+                    <div class="footer-section">
+                        <h3>Services</h3>
+                        <ul>
+                            <li><a href="services.html">Commercial Solar</a></li>
+                            <li><a href="services.html">Residential Solar</a></li>
+                            <li><a href="services.html">Energy Storage</a></li>
+                            <li><a href="services.html">Maintenance</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> <a href="mailto:info@nemesisenergy.co.za">info@nemesisenergy.co.za</a></p>
+                        <p><i class="fas fa-phone"></i> <a href="tel:+27662648645">+27662648645</a></p>
+                        <!-- Physical address commented out
+                        <p><i class="fas fa-map-marker-alt"></i> 500 Terry Francine Street<br>San Francisco, CA 94158</p>
+                        -->
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Nemesis Energy. All rights reserved.</p>
+                <p class="developer-credit"><a href="https://www.linkedin.com/company/koffee-solutions/" target="_blank" rel="noopener">Koffee Solutions</a></p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

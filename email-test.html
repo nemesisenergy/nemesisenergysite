@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Test - Nemesis Energy</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .test-form { background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0; }
+        .form-group { margin: 15px 0; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select, textarea { width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; }
+        button { background: #FF6B35; color: white; padding: 10px 20px; border: none; border-radius: 4px; cursor: pointer; }
+        button:hover { background: #e55a2b; }
+        .result { margin: 20px 0; padding: 15px; border-radius: 4px; }
+        .success { background: #d4edda; color: #155724; border: 1px solid #c3e6cb; }
+        .error { background: #f8d7da; color: #721c24; border: 1px solid #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>🧪 Email System Test</h1>
+    <p>Use this page to test if the email system is working correctly before going live.</p>
+
+    <div class="test-form">
+        <h2>Test Email Submission</h2>
+        <form id="testForm">
+            <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" name="firstName" value="Test" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="lastName">Last Name *</label>
+                <input type="text" id="lastName" name="lastName" value="User" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address *</label>
+                <input type="email" id="email" name="email" value="test@example.com" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" value="+1234567890" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="projectType">Project Type *</label>
+                <select id="projectType" name="projectType" required>
+                    <option value="consultation">General Consultation</option>
+                    <option value="residential">Residential Solar System</option>
+                    <option value="commercial">Commercial Solar System</option>
+                    <option value="hybrid">Hybrid System (Solar + Battery)</option>
+                    <option value="maintenance">Maintenance & Monitoring</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="propertyType">Property Type</label>
+                <select id="propertyType" name="propertyType">
+                    <option value="">Select property type</option>
+                    <option value="residential">Residential</option>
+                    <option value="commercial">Commercial/Retail</option>
+                    <option value="developer">Property Developer</option>
+                    <option value="business">Business Owner</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="monthlyBill">Current Monthly Energy Bill</label>
+                <select id="monthlyBill" name="monthlyBill">
+                    <option value="">Select range</option>
+                    <option value="under-100">Under $100</option>
+                    <option value="100-250">$100 - $250</option>
+                    <option value="250-500">$250 - $500</option>
+                    <option value="500-1000">$500 - $1,000</option>
+                    <option value="1000-2500">$1,000 - $2,500</option>
+                    <option value="over-2500">Over $2,500</option>
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" rows="4">This is a test message to verify that the email system is working correctly. Please ignore this test submission.</textarea>
+            </div>
+            
+            <div class="form-group">
+                <label>
+                    <input type="checkbox" name="newsletter" value="yes"> 
+                    Subscribe to newsletter (test)
+                </label>
+            </div>
+            
+            <button type="submit">🚀 Send Test Email</button>
+        </form>
+    </div>
+
+    <div id="result"></div>
+
+    <div class="test-form">
+        <h2>📋 Test Checklist</h2>
+        <ul>
+            <li>✅ Fill out the form above with test data</li>
+            <li>✅ Click "Send Test Email"</li>
+            <li>✅ Check if you receive a success message</li>
+            <li>✅ Check the email inbox at info@nemesisenergy.co.za</li>
+            <li>✅ Verify the email format looks good</li>
+            <li>✅ Test the reply functionality</li>
+        </ul>
+    </div>
+
+    <script>
+        document.getElementById('testForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const resultDiv = document.getElementById('result');
+            const submitButton = e.target.querySelector('button');
+            const originalText = submitButton.textContent;
+            
+            // Show loading state
+            submitButton.textContent = '⏳ Sending...';
+            submitButton.disabled = true;
+            resultDiv.innerHTML = '';
+            
+            try {
+                const formData = new FormData(e.target);
+                const response = await fetch('send-email.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok && result.success) {
+                    resultDiv.innerHTML = `
+                        <div class="result success">
+                            <strong>✅ Success!</strong><br>
+                            ${result.message}<br>
+                            <small>Check the email inbox at info@nemesisenergy.co.za</small>
+                        </div>
+                    `;
+                } else {
+                    throw new Error(result.message || 'Unknown error occurred');
+                }
+                
+            } catch (error) {
+                resultDiv.innerHTML = `
+                    <div class="result error">
+                        <strong>❌ Error!</strong><br>
+                        ${error.message}<br>
+                        <small>Check the EMAIL_SETUP_INSTRUCTIONS.md file for troubleshooting</small>
+                    </div>
+                `;
+            } finally {
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
