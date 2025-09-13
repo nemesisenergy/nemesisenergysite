@@ -581,15 +581,14 @@ p {
 .hero {
     position: relative;
     min-height: 100vh;
-    min-height: 100svh; /* Small viewport height for better mobile support */
+    min-height: 100dvh; /* Dynamic viewport height for mobile */
     height: auto;
-    min-height: fit-content; /* Ensure content is never cut off */
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: visible; /* Allow content to overflow if needed */
-    overflow-x: hidden; /* Prevent horizontal overflow only */
-    padding: clamp(0.5rem, 2vw, 2rem);
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding: clamp(1rem, 3vw, 2rem);
     padding-top: calc(var(--navbar-height) + clamp(1rem, 3vw, 2rem));
     padding-bottom: clamp(1rem, 3vw, 2rem);
     box-sizing: border-box;
@@ -603,9 +602,7 @@ p {
     transition: filter 1s cubic-bezier(0.4, 0, 0.2, 1);
     width: 100%;
     max-width: 100vw;
-    container-type: inline-size;
     -webkit-overflow-scrolling: touch;
-    /* Create clean stacking context */
     isolation: isolate;
     z-index: 1;
 }
@@ -631,765 +628,362 @@ p {
     }
 }
 
-/* CLEAN RESPONSIVE SYSTEM - NO CUTOFFS */
+/* CLEAN RESPONSIVE SYSTEM */
 
-/* Base responsive adjustments */
-@media (max-width: 1024px) {
+/* Desktop and large screens */
+@media (min-width: 1025px) {
     .hero {
-        min-height: 100vh;
-        min-height: 100svh;
-        height: auto;
-        min-height: fit-content !important; /* Always show all content */
-        padding: clamp(1rem, 2.5vw, 2rem);
-        padding-top: calc(var(--navbar-height) + clamp(1rem, 2.5vw, 2rem));
-        padding-bottom: clamp(1.5rem, 4vw, 3rem);
-        overflow: visible !important;
-        overflow-x: hidden;
+        padding: calc(var(--navbar-height) + clamp(2rem, 4vw, 4rem)) clamp(2rem, 5vw, 4rem) clamp(2rem, 4vw, 4rem);
+        filter: grayscale(0.3) brightness(0.9) contrast(0.98);
+    }
+    
+    .hero.active {
+        filter: grayscale(0) brightness(1) contrast(1);
     }
     
     .hero-content {
-        max-width: min(950px, 95vw);
-        padding: clamp(1rem, 2.5vw, 2rem);
-        gap: clamp(1rem, 2vw, 1.5rem);
-        min-height: auto !important;
-        height: auto !important;
-    }
-}
-
-
-
-
-
-/* Landscape orientation fixes - prevent content cutoff */
-@media (max-width: 900px) and (max-height: 600px) and (orientation: landscape) {
-    .hero {
-        min-height: auto !important;
-        height: auto !important;
-        padding: clamp(0.5rem, 1vw, 1rem);
-        padding-top: calc(var(--navbar-height) + clamp(0.5rem, 1vw, 1rem));
-        padding-bottom: clamp(1rem, 2vw, 1.5rem);
-        overflow: visible !important;
-        overflow-x: hidden;
-        justify-content: flex-start !important;
-        align-items: center !important;
-    }
-    
-    .hero-content {
-        max-width: calc(100vw - 2rem) !important;
-        padding: clamp(0.5rem, 1vw, 1rem) !important;
-        gap: clamp(0.4rem, 1vw, 0.8rem) !important;
-        min-height: auto !important;
-        height: auto !important;
-        justify-content: flex-start !important;
-    }
-    
-    .hero-logo {
-        width: clamp(150px, 20vw, 250px) !important;
-        max-width: 25vw !important;
-        animation: logoEnergyGlow 4s ease-in-out infinite !important;
+        max-width: min(1000px, 90vw);
+        padding: clamp(2rem, 4vw, 3rem);
+        gap: clamp(1.5rem, 3vw, 2.5rem);
     }
     
     .hero-title-slogan {
-        font-size: clamp(0.8rem, 2vw + 0.2rem, 1.2rem) !important;
-        margin-bottom: clamp(0.3rem, 0.8vw, 0.6rem) !important;
-        padding: clamp(0.2rem, 0.5vw, 0.4rem) clamp(0.4rem, 1vw, 0.6rem) !important;
+        font-size: clamp(1.2rem, 2.2vw + 0.5rem, 2.2rem);
+        white-space: nowrap;
     }
     
     .hero-description {
-        font-size: clamp(0.75rem, 1.5vw + 0.1rem, 1rem) !important;
-        margin-bottom: clamp(0.6rem, 1.2vw, 1rem) !important;
-        line-height: 1.3 !important;
-        max-width: 90% !important;
-    }
-    
-    .hero-buttons {
-        flex-direction: row !important;
-        gap: clamp(0.5rem, 1.2vw, 1rem) !important;
-        margin-bottom: clamp(0.6rem, 1.2vw, 1rem) !important;
-        max-width: 100% !important;
-        flex-wrap: wrap !important;
-        justify-content: center !important;
-    }
-    
-    .hero-buttons .btn {
-        font-size: clamp(0.7rem, 1.6vw, 0.9rem) !important;
-        padding: clamp(0.4rem, 1vw, 0.6rem) clamp(0.6rem, 1.5vw, 1rem) !important;
-        min-height: 36px !important;
-        min-width: clamp(120px, 18vw, 160px) !important;
-        width: auto !important;
-    }
-    
-    .hero-stats {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: clamp(0.4rem, 1vw, 0.8rem) !important;
-        max-width: min(400px, 80vw) !important;
-        margin-bottom: clamp(0.5rem, 1vw, 1rem) !important;
-    }
-    
-    .stat {
-        padding: clamp(0.4rem, 1vw, 0.8rem) clamp(0.3rem, 0.8vw, 0.6rem) !important;
-    }
-    
-    .stat-number {
-        font-size: clamp(1rem, 2.5vw + 0.1rem, 1.6rem) !important;
-        margin-bottom: clamp(0.1rem, 0.3vw, 0.2rem) !important;
-    }
-    
-    .stat-label {
-        font-size: clamp(0.6rem, 1.4vw, 0.8rem) !important;
-    }
-}
-
-/* Very short screens - ultra compact layout */
-@media (max-height: 500px) {
-    .hero {
-        min-height: auto !important;
-        height: auto !important;
-        padding: clamp(0.25rem, 0.8vw, 0.5rem);
-        padding-top: calc(var(--navbar-height) + clamp(0.25rem, 0.8vw, 0.5rem));
-        padding-bottom: clamp(0.5rem, 1.5vw, 1rem);
-        justify-content: flex-start !important;
-    }
-    
-    .hero-content {
-        gap: clamp(0.3rem, 0.8vw, 0.6rem) !important;
-        padding: clamp(0.25rem, 0.8vw, 0.5rem) !important;
+        font-size: clamp(1.1rem, 1.8vw + 0.3rem, 1.4rem);
+        max-width: min(800px, 85vw);
     }
     
     .hero-logo {
-        width: clamp(120px, 15vw, 200px) !important;
-        max-width: 20vw !important;
+        width: clamp(300px, 35vw + 50px, 600px);
+        max-width: 70vw;
     }
     
-    .hero-title-slogan {
-        font-size: clamp(0.7rem, 1.8vw + 0.1rem, 1rem) !important;
-        margin-bottom: clamp(0.2rem, 0.5vw, 0.4rem) !important;
-        padding: clamp(0.1rem, 0.4vw, 0.3rem) clamp(0.3rem, 0.8vw, 0.5rem) !important;
-    }
-    
-    .hero-description {
-        font-size: clamp(0.65rem, 1.4vw + 0.05rem, 0.85rem) !important;
-        margin-bottom: clamp(0.4rem, 1vw, 0.7rem) !important;
-        line-height: 1.2 !important;
-    }
-    
-    .hero-buttons {
-        gap: clamp(0.3rem, 0.8vw, 0.6rem) !important;
-        margin-bottom: clamp(0.4rem, 1vw, 0.7rem) !important;
-    }
-    
-    .hero-buttons .btn {
-        font-size: clamp(0.6rem, 1.4vw, 0.8rem) !important;
-        padding: clamp(0.3rem, 0.8vw, 0.5rem) clamp(0.5rem, 1.2vw, 0.8rem) !important;
-        min-height: 32px !important;
-    }
-    
-    .hero-stats {
-        gap: clamp(0.3rem, 0.8vw, 0.6rem) !important;
-        margin-bottom: clamp(0.3rem, 0.8vw, 0.6rem) !important;
-    }
-    
-    .stat {
-        padding: clamp(0.3rem, 0.8vw, 0.6rem) clamp(0.2rem, 0.6vw, 0.4rem) !important;
-    }
-    
-    .stat-number {
-        font-size: clamp(0.9rem, 2.2vw, 1.3rem) !important;
-        margin-bottom: clamp(0.05rem, 0.2vw, 0.15rem) !important;
-    }
-    
-    .stat-label {
-        font-size: clamp(0.55rem, 1.2vw, 0.7rem) !important;
+    .scroll-indicator {
+        display: block;
     }
 }
 
-/* Universal cutoff prevention */
-@media screen {
+/* Tablets */
+@media (min-width: 769px) and (max-width: 1024px) {
     .hero {
-        overflow: visible !important;
-        overflow-x: hidden !important;
-        min-height: fit-content !important;
+        padding: calc(var(--navbar-height) + clamp(1.5rem, 3vw, 2.5rem)) clamp(1.5rem, 4vw, 3rem) clamp(1.5rem, 3vw, 2.5rem);
+        filter: grayscale(0.2) brightness(0.95) contrast(0.98);
+    }
+    
+    .hero.active {
+        filter: grayscale(0) brightness(1) contrast(1);
     }
     
     .hero-content {
-        min-height: auto !important;
-        height: auto !important;
-        overflow: visible !important;
-        flex-shrink: 0 !important;
+        max-width: min(900px, 92vw);
+        padding: clamp(1.5rem, 3vw, 2rem);
+        gap: clamp(1.2rem, 2.5vw, 1.8rem);
     }
     
-    /* Hide scroll indicator on mobile and short screens */
+    .hero-title-slogan {
+        font-size: clamp(1.1rem, 2.8vw + 0.3rem, 1.8rem);
+        white-space: normal;
+        line-height: 1.2;
+    }
+    
+    .hero-description {
+        font-size: clamp(1rem, 2.2vw + 0.2rem, 1.25rem);
+        max-width: 95%;
+    }
+    
+    .hero-logo {
+        width: clamp(280px, 40vw + 30px, 450px);
+        max-width: 80vw;
+    }
+    
     .scroll-indicator {
-        display: none !important;
+        display: none;
     }
 }
 
-@media (min-width: 1025px) and (min-height: 700px) {
-    .scroll-indicator {
-        display: block !important;
-    }
-}
+
+/* Mobile devices - Large */
 @media (max-width: 768px) {
     .hero {
         min-height: 100vh;
         min-height: 100dvh;
-        padding: clamp(0.5rem, 2vw, 1rem);
-        padding-top: calc(var(--navbar-height) + clamp(0.5rem, 2vw, 1rem));
-        padding-bottom: clamp(1rem, 3vw, 2rem);
-        filter: grayscale(0) brightness(1) contrast(1) !important;
-        overflow-x: hidden;
+        padding: clamp(1rem, 3vw, 1.5rem);
+        padding-top: calc(var(--navbar-height) + clamp(1rem, 3vw, 1.5rem));
+        padding-bottom: clamp(1.5rem, 4vw, 2.5rem);
+        filter: grayscale(0) brightness(1) contrast(1);
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
     }
     
-    .hero.active {
-        filter: grayscale(0) brightness(1) contrast(1) !important;
-    }
-    
     .hero-content {
         width: 100%;
-        max-width: calc(100vw - clamp(1rem, 3vw, 2rem));
-        padding: clamp(0.5rem, 1.5vw, 1rem);
-        gap: clamp(0.6rem, 2vw, 1.2rem);
+        max-width: calc(100vw - clamp(2rem, 4vw, 3rem));
+        padding: clamp(1rem, 2vw, 1.5rem);
+        gap: clamp(1rem, 3vw, 1.5rem);
         text-align: center;
         z-index: 150;
         position: relative;
         box-sizing: border-box;
-        word-wrap: break-word;
-        overflow-wrap: break-word;
     }
     
     .hero-logo-container {
-        margin-bottom: clamp(0.4rem, 1.5vw, 0.8rem);
+        margin-bottom: clamp(0.8rem, 2vw, 1.2rem);
         width: 100%;
         display: flex;
         justify-content: center;
     }
     
     .hero-logo {
-        width: clamp(250px, 40vw + 30px, 380px);
+        width: clamp(320px, 50vw + 20px, 450px);
         max-width: 85vw;
         height: auto;
     }
     
     .hero-title-slogan {
-        font-size: clamp(0.9rem, 2.8vw + 0.3rem, 1.4rem);
-        margin-bottom: clamp(0.4rem, 1.2vw, 0.7rem);
-        padding: clamp(0.2rem, 0.8vw, 0.4rem) clamp(0.4rem, 1.5vw, 0.8rem);
+        font-size: clamp(1.1rem, 4vw + 0.4rem, 1.8rem);
+        margin-bottom: clamp(0.6rem, 2vw, 1rem);
+        padding: clamp(0.3rem, 1vw, 0.5rem) clamp(0.6rem, 2vw, 1rem);
         white-space: normal;
         word-wrap: break-word;
         overflow-wrap: break-word;
-        line-height: 1.25;
-    }
-    
-    .hero-title-sub {
-        font-size: clamp(1.1rem, 3.8vw + 0.3rem, 1.8rem);
-        margin-bottom: clamp(0.6rem, 1.8vw, 1rem);
-        line-height: 1.2;
+        line-height: 1.3;
     }
     
     .hero-description {
-        font-size: clamp(0.85rem, 2.5vw + 0.15rem, 1.05rem);
+        font-size: clamp(1rem, 3.2vw + 0.2rem, 1.3rem);
         line-height: 1.5;
         max-width: 95%;
-        margin-bottom: clamp(0.8rem, 2.5vw, 1.3rem);
-        padding: 0 clamp(0.3rem, 1.5vw, 0.8rem);
+        margin-bottom: clamp(1.2rem, 3vw, 1.8rem);
+        padding: 0 clamp(0.5rem, 2vw, 1rem);
     }
     
     .hero-buttons {
         flex-direction: column;
-        gap: clamp(0.6rem, 1.8vw, 1rem);
+        gap: clamp(0.8rem, 2.5vw, 1.2rem);
         width: 100%;
-        max-width: min(310px, 90vw);
-        margin-bottom: clamp(0.8rem, 2.5vw, 1.3rem);
+        max-width: min(350px, 90vw);
+        margin-bottom: clamp(1rem, 3vw, 1.5rem);
     }
     
     .hero-buttons .btn {
         width: 100%;
         min-width: auto;
-        min-height: 46px;
-        font-size: clamp(0.85rem, 2.3vw + 0.1rem, 1rem);
-        padding: clamp(0.7rem, 1.8vw, 1rem) clamp(1rem, 2.8vw, 1.4rem);
+        min-height: 50px;
+        font-size: clamp(1rem, 3vw + 0.1rem, 1.2rem);
+        padding: clamp(0.8rem, 2.5vw, 1.2rem) clamp(1.2rem, 3.5vw, 1.6rem);
     }
     
-    .hero-stats {
-        grid-template-columns: repeat(2, 1fr);
-        gap: clamp(0.5rem, 1.5vw, 0.9rem);
-        max-width: min(320px, 90vw);
-        width: 100%;
-        margin-top: clamp(0.4rem, 1.5vw, 0.8rem);
-    }
-    
-    .stat {
-        padding: clamp(0.6rem, 1.8vw, 1rem);
-        text-align: center;
-    }
-    
-    .stat-number {
-        font-size: clamp(1.3rem, 3.5vw + 0.2rem, 1.9rem);
-        margin-bottom: clamp(0.15rem, 0.5vw, 0.4rem);
-    }
-    
-    .stat-label {
-        font-size: clamp(0.7rem, 2.2vw + 0.05rem, 0.85rem);
+    .scroll-indicator {
+        display: none;
     }
 }
 
-/* Small mobile devices (up to 600px) */
+/* Mobile devices - Medium */
 @media (max-width: 600px) {
     .hero {
-        padding: clamp(0.4rem, 1.5vw, 0.8rem);
-        padding-top: calc(var(--navbar-height) + clamp(0.4rem, 1.5vw, 0.8rem));
-        padding-bottom: clamp(0.8rem, 2.5vw, 1.5rem);
+        padding: clamp(0.8rem, 2.5vw, 1.2rem);
+        padding-top: calc(var(--navbar-height) + clamp(0.8rem, 2.5vw, 1.2rem));
+        padding-bottom: clamp(1.2rem, 3.5vw, 2rem);
     }
     
     .hero-content {
-        max-width: calc(100vw - clamp(0.8rem, 2.5vw, 1.5rem));
-        padding: clamp(0.4rem, 1.2vw, 0.8rem);
-        gap: clamp(0.5rem, 1.8vw, 1rem);
+        max-width: calc(100vw - clamp(1.6rem, 4vw, 2.4rem));
+        padding: clamp(0.8rem, 2vw, 1.2rem);
+        gap: clamp(0.8rem, 2.5vw, 1.2rem);
     }
     
     .hero-logo {
-        width: clamp(280px, 50vw + 20px, 360px);
+        width: clamp(340px, 55vw + 20px, 420px);
         max-width: 80vw;
     }
     
     .hero-title-slogan {
-        font-size: clamp(0.85rem, 2.5vw + 0.25rem, 1.25rem);
-        padding: clamp(0.15rem, 0.6vw, 0.3rem) clamp(0.3rem, 1.2vw, 0.6rem);
+        font-size: clamp(1rem, 3.8vw + 0.3rem, 1.6rem);
+        padding: clamp(0.25rem, 0.8vw, 0.4rem) clamp(0.5rem, 1.5vw, 0.8rem);
         line-height: 1.3;
     }
     
     .hero-description {
-        font-size: clamp(0.8rem, 2.2vw + 0.1rem, 1rem);
-        line-height: 1.4;
-        padding: 0 clamp(0.2rem, 1vw, 0.5rem);
+        font-size: clamp(0.95rem, 3vw + 0.15rem, 1.2rem);
+        line-height: 1.5;
+        padding: 0 clamp(0.3rem, 1.5vw, 0.6rem);
     }
     
     .hero-buttons {
-        max-width: min(290px, 85vw);
-        gap: clamp(0.5rem, 1.5vw, 0.8rem);
+        max-width: min(320px, 85vw);
+        gap: clamp(0.7rem, 2vw, 1rem);
     }
     
     .hero-buttons .btn {
-        font-size: clamp(0.8rem, 2.1vw + 0.05rem, 0.95rem);
-        padding: clamp(0.65rem, 1.6vw, 0.9rem) clamp(0.9rem, 2.5vw, 1.2rem);
-        min-height: 44px;
-    }
-    
-    .hero-stats {
-        grid-template-columns: 1fr;
-        gap: clamp(0.4rem, 1.3vw, 0.7rem);
-        max-width: min(270px, 85vw);
-    }
-    
-    .stat {
-        padding: clamp(0.5rem, 1.5vw, 0.8rem) clamp(0.3rem, 1vw, 0.6rem);
-    }
-    
-    .stat-number {
-        font-size: clamp(1.2rem, 3.2vw + 0.15rem, 1.7rem);
-        margin-bottom: clamp(0.1rem, 0.4vw, 0.3rem);
-    }
-    
-    .stat-label {
-        font-size: clamp(0.65rem, 2vw + 0.02rem, 0.8rem);
+        font-size: clamp(0.95rem, 2.8vw + 0.1rem, 1.1rem);
+        padding: clamp(0.75rem, 2.2vw, 1rem) clamp(1rem, 3vw, 1.4rem);
+        min-height: 48px;
     }
 }
 
-/* Extra small devices (up to 480px) */
+/* Mobile devices - Small */
 @media (max-width: 480px) {
     .hero {
-        padding: clamp(0.3rem, 1.2vw, 0.6rem);
-        padding-top: calc(var(--navbar-height) + clamp(0.3rem, 1.2vw, 0.6rem));
-        padding-bottom: clamp(0.8rem, 3vw, 1.5rem);
+        padding: clamp(0.6rem, 2vw, 1rem);
+        padding-top: calc(var(--navbar-height) + clamp(0.6rem, 2vw, 1rem));
+        padding-bottom: clamp(1rem, 3vw, 1.8rem);
     }
     
     .hero-content {
-        max-width: calc(100vw - clamp(0.6rem, 2vw, 1.2rem));
-        padding: clamp(0.3rem, 1vw, 0.6rem);
-        gap: clamp(0.4rem, 1.5vw, 0.8rem);
+        max-width: calc(100vw - clamp(1.2rem, 3vw, 2rem));
+        padding: clamp(0.6rem, 1.5vw, 1rem);
+        gap: clamp(0.7rem, 2vw, 1rem);
     }
     
     .hero-logo {
-        width: clamp(260px, 55vw + 15px, 340px);
+        width: clamp(360px, 60vw + 15px, 400px);
         max-width: 75vw;
     }
     
     .hero-title-slogan {
-        font-size: clamp(0.8rem, 2.3vw + 0.2rem, 1.15rem);
-        padding: clamp(0.12rem, 0.5vw, 0.25rem) clamp(0.25rem, 1vw, 0.5rem);
-        margin-bottom: clamp(0.3rem, 1vw, 0.6rem);
+        font-size: clamp(0.95rem, 3.5vw + 0.25rem, 1.4rem);
+        padding: clamp(0.2rem, 0.6vw, 0.3rem) clamp(0.4rem, 1.2vw, 0.6rem);
+        margin-bottom: clamp(0.5rem, 1.5vw, 0.8rem);
         line-height: 1.3;
     }
     
-    .hero-title-sub {
-        font-size: clamp(1rem, 3.5vw + 0.2rem, 1.6rem);
-        margin-bottom: clamp(0.5rem, 1.5vw, 0.8rem);
-    }
-    
     .hero-description {
-        font-size: clamp(0.75rem, 2vw + 0.08rem, 0.95rem);
-        line-height: 1.4;
-        margin-bottom: clamp(0.6rem, 2vw, 1rem);
-        padding: 0 clamp(0.15rem, 0.8vw, 0.4rem);
+        font-size: clamp(0.9rem, 2.8vw + 0.1rem, 1.1rem);
+        line-height: 1.5;
+        margin-bottom: clamp(1rem, 2.5vw, 1.4rem);
+        padding: 0 clamp(0.2rem, 1vw, 0.4rem);
     }
     
     .hero-buttons {
-        max-width: min(270px, 80vw);
-        gap: clamp(0.4rem, 1.3vw, 0.7rem);
-        margin-bottom: clamp(0.6rem, 2vw, 1rem);
+        max-width: min(300px, 80vw);
+        gap: clamp(0.6rem, 1.8vw, 0.9rem);
+        margin-bottom: clamp(0.8rem, 2.5vw, 1.2rem);
     }
     
     .hero-buttons .btn {
-        font-size: clamp(0.75rem, 1.9vw + 0.02rem, 0.9rem);
-        padding: clamp(0.6rem, 1.4vw, 0.8rem) clamp(0.8rem, 2.2vw, 1.1rem);
-        min-height: 42px;
-    }
-    
-    .hero-stats {
-        grid-template-columns: 1fr;
-        gap: clamp(0.3rem, 1.1vw, 0.6rem);
-        max-width: min(250px, 80vw);
-    }
-    
-    .stat {
-        padding: clamp(0.4rem, 1.3vw, 0.7rem) clamp(0.2rem, 0.8vw, 0.5rem);
-    }
-    
-    .stat-number {
-        font-size: clamp(1.1rem, 2.8vw + 0.1rem, 1.5rem);
-        margin-bottom: clamp(0.08rem, 0.3vw, 0.2rem);
-    }
-    
-    .stat-label {
-        font-size: clamp(0.6rem, 1.8vw, 0.75rem);
-    }
-    
-    .scroll-indicator {
-        display: none;
+        font-size: clamp(0.9rem, 2.5vw + 0.05rem, 1.05rem);
+        padding: clamp(0.7rem, 2vw, 0.9rem) clamp(0.9rem, 2.8vw, 1.2rem);
+        min-height: 46px;
     }
 }
-
-/* COMPREHENSIVE RESPONSIVE OVERRIDES - HIGHEST PRIORITY */
-
-/* Ensure responsive typography works on ALL devices */
-@media screen and (max-width: 1200px) {
-    .hero .hero-content {
-        max-width: min(95vw, 1000px) !important;
-        width: 100% !important;
-        padding: clamp(0.5rem, 2vw, 2rem) !important;
-        gap: clamp(0.75rem, 2vw, 1.5rem) !important;
-    }
-    
-    .hero .hero-title-slogan {
-        font-size: clamp(1rem, 2.5vw + 0.5rem, 2rem) !important;
-        white-space: normal !important;
-        overflow: visible !important;
-        text-overflow: initial !important;
-        line-height: 1.2 !important;
-        word-wrap: break-word !important;
-        overflow-wrap: break-word !important;
-    }
-    
-    .hero .hero-description {
-        font-size: clamp(0.9rem, 1.8vw + 0.3rem, 1.25rem) !important;
-        max-width: min(95vw, 700px) !important;
-        line-height: 1.5 !important;
-        padding: 0 clamp(0.25rem, 1vw, 1rem) !important;
-    }
-    
-    .hero .hero-logo {
-        width: clamp(250px, 35vw + 50px, 600px) !important;
-        max-width: 90vw !important;
-        height: auto !important;
-    }
-}
-
-@media screen and (max-width: 768px) {
+/* Mobile devices - Extra Small */
+@media (max-width: 360px) {
     .hero {
-        padding: clamp(0.5rem, 2vw, 1rem) !important;
-        padding-top: calc(var(--navbar-height) + clamp(0.5rem, 2vw, 1rem)) !important;
-        padding-bottom: clamp(1rem, 3vw, 2rem) !important;
-        min-height: 100vh !important;
-        min-height: 100dvh !important;
-    }
-    
-    .hero .hero-content {
-        max-width: calc(100vw - clamp(1rem, 3vw, 2rem)) !important;
-        gap: clamp(0.6rem, 2vw, 1.2rem) !important;
-        text-align: center !important;
-    }
-    
-    .hero .hero-title-slogan {
-        font-size: clamp(0.9rem, 2.8vw + 0.3rem, 1.4rem) !important;
-        margin-bottom: clamp(0.4rem, 1.2vw, 0.7rem) !important;
-        padding: clamp(0.2rem, 0.8vw, 0.4rem) clamp(0.4rem, 1.5vw, 0.8rem) !important;
-    }
-    
-    .hero .hero-description {
-        font-size: clamp(0.85rem, 2.5vw + 0.15rem, 1.05rem) !important;
-        margin-bottom: clamp(0.8rem, 2.5vw, 1.3rem) !important;
-        max-width: 95% !important;
-    }
-    
-    .hero .hero-buttons {
-        flex-direction: column !important;
-        gap: clamp(0.6rem, 1.8vw, 1rem) !important;
-        max-width: min(310px, 90vw) !important;
-        width: 100% !important;
-    }
-    
-    .hero .hero-buttons .btn {
-        width: 100% !important;
-        min-height: 46px !important;
-        font-size: clamp(0.85rem, 2.3vw + 0.1rem, 1rem) !important;
-        padding: clamp(0.7rem, 1.8vw, 1rem) clamp(1rem, 2.8vw, 1.4rem) !important;
-    }
-    
-    .hero .hero-stats {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: clamp(0.5rem, 1.5vw, 0.9rem) !important;
-        max-width: min(320px, 90vw) !important;
-    }
-    
-    .hero .hero-logo {
-        width: clamp(250px, 40vw + 30px, 380px) !important;
-        max-width: 85vw !important;
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .hero {
-        padding: clamp(0.3rem, 1.2vw, 0.6rem) !important;
-        padding-top: calc(var(--navbar-height) + clamp(0.3rem, 1.2vw, 0.6rem)) !important;
-        padding-bottom: clamp(0.8rem, 3vw, 1.5rem) !important;
-    }
-    
-    .hero .hero-content {
-        max-width: calc(100vw - clamp(0.6rem, 2vw, 1.2rem)) !important;
-        gap: clamp(0.4rem, 1.5vw, 0.8rem) !important;
-    }
-    
-    .hero .hero-title-slogan {
-        font-size: clamp(0.8rem, 2.3vw + 0.2rem, 1.15rem) !important;
-        padding: clamp(0.12rem, 0.5vw, 0.25rem) clamp(0.25rem, 1vw, 0.5rem) !important;
-        margin-bottom: clamp(0.3rem, 1vw, 0.6rem) !important;
-    }
-    
-    .hero .hero-description {
-        font-size: clamp(0.75rem, 2vw + 0.08rem, 0.95rem) !important;
-        margin-bottom: clamp(0.6rem, 2vw, 1rem) !important;
-    }
-    
-    .hero .hero-buttons {
-        max-width: min(270px, 80vw) !important;
-        gap: clamp(0.4rem, 1.3vw, 0.7rem) !important;
-    }
-    
-    .hero .hero-buttons .btn {
-        font-size: clamp(0.75rem, 1.9vw + 0.02rem, 0.9rem) !important;
-        padding: clamp(0.6rem, 1.4vw, 0.8rem) clamp(0.8rem, 2.2vw, 1.1rem) !important;
-        min-height: 42px !important;
-    }
-    
-    .hero .hero-stats {
-        grid-template-columns: 1fr !important;
-        gap: clamp(0.3rem, 1.1vw, 0.6rem) !important;
-        max-width: min(250px, 80vw) !important;
-    }
-    
-    .hero .hero-logo {
-        width: clamp(260px, 55vw + 15px, 340px) !important;
-        max-width: 75vw !important;
-    }
-}
-
-@media screen and (max-width: 360px) {
-    .hero .hero-content {
-        max-width: calc(100vw - 0.8rem) !important;
-        gap: clamp(0.3rem, 1.2vw, 0.6rem) !important;
-    }
-    
-    .hero .hero-title-slogan {
-        font-size: clamp(0.75rem, 2.1vw + 0.15rem, 1rem) !important;
-        padding: clamp(0.1rem, 0.4vw, 0.2rem) clamp(0.2rem, 0.8vw, 0.4rem) !important;
-    }
-    
-    .hero .hero-description {
-        font-size: clamp(0.7rem, 1.8vw + 0.05rem, 0.9rem) !important;
-    }
-    
-    .hero .hero-buttons .btn {
-        font-size: clamp(0.7rem, 1.7vw, 0.85rem) !important;
-        padding: clamp(0.5rem, 1.2vw, 0.7rem) clamp(0.7rem, 2vw, 1rem) !important;
-        min-height: 40px !important;
-    }
-    
-    .hero .hero-logo {
-        width: clamp(220px, 60vw, 300px) !important;
-        max-width: 70vw !important;
-    }
-}
-
-/* Landscape mobile optimization */
-@media screen and (max-width: 900px) and (max-height: 500px) and (orientation: landscape) {
-    .hero {
-        min-height: 100vh !important;
-        min-height: 100dvh !important;
-        padding: clamp(0.25rem, 1vw, 0.75rem) !important;
-        padding-top: calc(var(--navbar-height) + clamp(0.25rem, 1vw, 0.75rem)) !important;
-        overflow-y: auto !important;
-    }
-    
-    .hero .hero-content {
-        gap: clamp(0.3rem, 1vw, 0.75rem) !important;
-        max-width: calc(100vw - 1rem) !important;
-    }
-    
-    .hero .hero-logo {
-        width: clamp(180px, 25vw, 300px) !important;
-        max-width: 30vw !important;
-    }
-    
-    .hero .hero-buttons {
-        flex-direction: row !important;
-        gap: clamp(0.5rem, 1.5vw, 1rem) !important;
-        flex-wrap: wrap !important;
-    }
-    
-    .hero .hero-buttons .btn {
-        min-width: clamp(120px, 20vw, 160px) !important;
-        font-size: clamp(0.7rem, 1.8vw, 0.9rem) !important;
-        min-height: 36px !important;
-    }
-    
-    .hero .hero-stats {
-        grid-template-columns: repeat(2, 1fr) !important;
-        max-width: min(400px, 90vw) !important;
-    }
-}
-@media (max-width: 360px), (max-height: 600px) and (orientation: landscape) {
-    .hero {
-        min-height: auto; /* No viewport height constraints */
-        height: auto;
-        padding: calc(var(--navbar-height) + 1rem) 1rem 4rem 1rem; /* Generous but fixed padding */
-        overflow-y: visible;
-        -webkit-overflow-scrolling: touch;
+        padding: clamp(0.5rem, 1.8vw, 0.8rem);
+        padding-top: calc(var(--navbar-height) + clamp(0.5rem, 1.8vw, 0.8rem));
+        padding-bottom: clamp(0.8rem, 2.5vw, 1.5rem);
     }
     
     .hero-content {
-        padding: 0.75rem; /* Simple fixed padding */
-        gap: 1rem; /* Fixed gap */
-        max-width: calc(100vw - 2rem);
-        min-height: auto;
+        max-width: calc(100vw - clamp(1rem, 2.5vw, 1.6rem));
+        gap: clamp(0.5rem, 1.8vw, 0.8rem);
+        padding: clamp(0.5rem, 1.2vw, 0.8rem);
     }
     
-    .hero-stats {
-        grid-template-columns: 1fr; /* Stack all stats vertically */
-        gap: 0.75rem;
-        max-width: calc(100vw - 2rem);
-        margin-bottom: 1.5rem;
+    .hero-logo {
+        width: clamp(320px, 65vw, 380px);
+        max-width: 70vw;
     }
     
-    .hero-buttons {
-        flex-direction: column; /* Stack buttons vertically */
-        gap: 1rem;
-        width: 100%;
-        max-width: calc(100vw - 2rem);
-        margin-bottom: 1rem; /* Reduce bottom margin */
-    }
-    
-    .hero-buttons .btn {
-        width: 100%;
-        min-height: 44px;
-        font-size: 0.9rem;
-        padding: 0.75rem 1rem; /* Fixed padding */
+    .hero-title-slogan {
+        font-size: clamp(0.9rem, 3.2vw + 0.2rem, 1.25rem);
+        padding: clamp(0.15rem, 0.5vw, 0.25rem) clamp(0.3rem, 1vw, 0.5rem);
+        line-height: 1.3;
     }
     
     .hero-description {
-        font-size: 0.85rem; /* Fixed smaller size */
-        line-height: 1.3;
-        margin-bottom: 1rem; /* Fixed margin */
+        font-size: clamp(0.85rem, 2.6vw + 0.08rem, 1.05rem);
+        margin-bottom: clamp(0.8rem, 2.2vw, 1.2rem);
     }
     
-    /* Hide scroll indicator on very small screens to save space */
-    .scroll-indicator {
-        display: none;
+    .hero-buttons {
+        max-width: min(280px, 75vw);
+        gap: clamp(0.5rem, 1.6vw, 0.8rem);
+    }
+    
+    .hero-buttons .btn {
+        font-size: clamp(0.85rem, 2.3vw, 1rem);
+        padding: clamp(0.65rem, 1.8vw, 0.85rem) clamp(0.8rem, 2.5vw, 1.1rem);
+        min-height: 44px;
     }
 }
 
 /* Landscape orientation fixes for mobile devices */
-@media (orientation: landscape) and (max-height: 600px) {
+@media (orientation: landscape) and (max-height: 600px) and (max-width: 900px) {
     .hero {
         min-height: 100vh;
         min-height: 100dvh;
         align-items: flex-start;
         justify-content: flex-start;
-        padding-top: calc(var(--navbar-height) + 0.5rem);
-        padding-bottom: 1rem;
+        padding-top: calc(var(--navbar-height) + 0.8rem);
+        padding-bottom: 1.2rem;
         overflow-y: auto;
     }
     
     .hero-content {
         justify-content: flex-start;
-        padding: clamp(0.5rem, 1.5vw, 1rem);
-        gap: clamp(0.5rem, 1.5vw, 0.75rem);
+        padding: clamp(0.8rem, 2vw, 1.2rem);
+        gap: clamp(0.6rem, 2vw, 1rem);
         margin-top: 0;
     }
     
     .hero-logo {
-        width: clamp(200px, 25vw, 300px) !important;
-        max-width: 70vw;
-    }
-    
-    .hero-logo-container {
-        margin-bottom: clamp(0.5rem, 1.5vw, 0.75rem);
+        width: clamp(220px, 30vw, 320px);
+        max-width: 60vw;
     }
     
     .hero-title-slogan {
-        font-size: clamp(0.9rem, 2.5vw, 1.2rem);
-        margin-bottom: clamp(0.25rem, 1vw, 0.5rem);
+        font-size: clamp(1rem, 3vw, 1.3rem);
+        margin-bottom: clamp(0.4rem, 1.5vw, 0.7rem);
     }
     
     .hero-description {
-        font-size: clamp(0.8rem, 2vw, 0.95rem);
-        margin-bottom: clamp(0.75rem, 2vw, 1rem);
+        font-size: clamp(0.85rem, 2.2vw, 1rem);
+        margin-bottom: clamp(0.8rem, 2.5vw, 1.2rem);
         line-height: 1.4;
     }
     
     .hero-buttons {
         flex-direction: row;
-        gap: clamp(0.5rem, 1.5vw, 0.75rem);
-        margin-bottom: clamp(0.75rem, 2vw, 1rem);
+        gap: clamp(0.6rem, 2vw, 1rem);
+        margin-bottom: clamp(0.8rem, 2.5vw, 1.2rem);
+        flex-wrap: wrap;
     }
     
     .hero-buttons .btn {
-        min-height: 40px;
-        font-size: clamp(0.75rem, 2vw, 0.85rem);
-        padding: clamp(0.5rem, 1.5vw, 0.75rem) clamp(0.75rem, 2vw, 1rem);
+        min-height: 42px;
+        font-size: clamp(0.8rem, 2.2vw, 1rem);
+        padding: clamp(0.6rem, 1.8vw, 0.8rem) clamp(0.8rem, 2.2vw, 1.1rem);
+        min-width: clamp(120px, 20vw, 160px);
+        width: auto;
+    }
+}
+
+
+    
+/* Basic fallback for ultra-wide screens */
+@media (min-width: 1920px) {
+    .hero {
+        padding: calc(var(--navbar-height) + clamp(2rem, 3vw, 4rem)) clamp(2rem, 5vw, 6rem) clamp(2rem, 3vw, 4rem);
     }
     
-    .hero-stats {
-        grid-template-columns: repeat(2, 1fr);
-        gap: clamp(0.5rem, 1.5vw, 0.75rem);
-        max-width: min(400px, 80vw);
+    .hero-content {
+        max-width: min(1200px, 85vw);
+        padding: clamp(2rem, 3vw, 3rem);
+        gap: clamp(2rem, 3vw, 3rem);
     }
     
-    .stat {
-        padding: clamp(0.5rem, 1.5vw, 0.75rem);
+    .hero-title-slogan {
+        font-size: clamp(1.5rem, 2vw + 0.5rem, 2.5rem);
     }
     
-    .stat-number {
-        font-size: clamp(1.3rem, 3vw, 1.8rem);
-    }
-    
-    .stat-label {
-        font-size: clamp(0.65rem, 1.8vw, 0.75rem);
-    }
-    
-    .scroll-indicator {
-        display: none;
+    .hero-description {
+        font-size: clamp(1.2rem, 1.5vw + 0.3rem, 1.6rem);
+        max-width: min(800px, 80vw);
     }
 }
 
@@ -1707,25 +1301,29 @@ p {
     }
 }
 
-@media (max-width: 1200px) {
-    .hero-content {
-        padding: clamp(1rem, 3vw, 2rem) clamp(1.5rem, 4vw, 3rem);
+/* Clean up viewport units and ensure content never gets cut off */
+@media screen {
+    .hero {
+        overflow-x: hidden;
+        overflow-y: auto;
     }
     
-    .hero-title-slogan {
-        padding: clamp(0.25rem, 0.8vw, 0.4rem) clamp(0.6rem, 1.8vw, 1rem);
+    .hero-content {
+        min-height: auto;
+        height: auto;
+        overflow: visible;
+        flex-shrink: 0;
+    }
+    
+    /* Hide scroll indicator on mobile and short screens */
+    .scroll-indicator {
+        display: none;
     }
 }
 
-@media (max-width: 768px) {
-    .hero-content {
-        padding: 0 max(var(--spacing-4), 5vw);
-    }
-}
-
-@media (max-width: 480px) {
-    .hero-content {
-        padding: 0 max(var(--spacing-4), 6vw);
+@media (min-width: 1025px) and (min-height: 700px) {
+    .scroll-indicator {
+        display: block;
     }
 }
 
@@ -2059,9 +1657,9 @@ p {
 
 .hero-title-slogan {
     display: block;
-    font-size: clamp(1rem, 2.5vw + 0.5rem, 2rem);
+    font-size: clamp(1.2rem, 3vw + 0.5rem, 2.2rem);
     font-weight: 900;
-    line-height: 1.1;
+    line-height: 1.2;
     letter-spacing: -0.03em;
     background: linear-gradient(135deg, 
         var(--color-white) 0%, 
@@ -2076,8 +1674,8 @@ p {
     background-clip: text;
     position: relative;
     animation: energyTextFlow 4s ease-in-out infinite;
-    margin-bottom: clamp(0.25rem, 0.8vw, 0.5rem);
-    padding: clamp(0.25rem, 1vw, 0.75rem) clamp(0.5rem, 1.5vw, 1rem);
+    margin-bottom: clamp(0.5rem, 1.5vw, 1rem);
+    padding: clamp(0.3rem, 1.2vw, 0.8rem) clamp(0.6rem, 2vw, 1.2rem);
     transition: all 0.8s ease;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -2196,10 +1794,10 @@ p {
 }
 
 .hero-description {
-    font-size: clamp(0.9rem, 1.8vw + 0.3rem, 1.25rem);
+    font-size: clamp(1rem, 2.2vw + 0.3rem, 1.4rem);
     line-height: 1.6;
     opacity: 0.7;
-    margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
     max-width: min(700px, 95vw);
     margin-left: auto;
     margin-right: auto;
@@ -2210,7 +1808,7 @@ p {
     word-wrap: break-word;
     overflow-wrap: break-word;
     flex-shrink: 1;
-    padding: 0 clamp(0.25rem, 1vw, 1rem);
+    padding: 0 clamp(0.5rem, 1.5vw, 1.2rem);
 }
 
 .hero.active .hero-description {
@@ -2231,10 +1829,10 @@ p {
 
 .hero-buttons {
     display: flex;
-    gap: clamp(0.75rem, 2vw, 1.5rem);
+    gap: clamp(1rem, 2.5vw, 1.8rem);
     justify-content: center;
     align-items: center;
-    margin-bottom: clamp(0.75rem, 1.5vw, 1.25rem);
+    margin-bottom: clamp(1rem, 2vw, 1.5rem);
     flex-wrap: wrap;
     animation: buttonsSlide 2s ease-out 1s both;
     flex-shrink: 0;
